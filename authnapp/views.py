@@ -37,7 +37,9 @@ def register(request):
         if register_form.is_valid():
             register_form.save()
             return HttpResponseRedirect(reverse("auth:login"))
-    register_form = ShopUserRegisterForm()
+    else:
+        register_form = ShopUserRegisterForm()
+
     content = {"title": title, "register_form": register_form}
     return render(request, "authnapp/register.html", content)
 
@@ -50,6 +52,8 @@ def edit(request):
         if edit_form.is_valid():
             edit_form.save()
             return HttpResponseRedirect(reverse("auth:edit"))
-    edit_form = ShopUserEditForm(instance=request.user)
+    else:
+        edit_form = ShopUserEditForm(instance=request.user)
+
     content = {"title": title, "edit_form": edit_form, "media_url": settings.MEDIA_URL}
     return render(request, "authnapp/edit.html", content)
